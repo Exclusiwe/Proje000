@@ -1,0 +1,44 @@
+﻿@model Yonetici
+
+<h2>Yonetici Ekle</h2>
+<hr>
+
+<form asp-controller="Yonetici" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="YoneticiId" class="form-label">Personel Id</label>
+        <input asp-for="YoneticiId" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Adi" class="form-label">Personel Adı</label>
+        <input asp-for="Adi" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Soyadi" class="form-label">Personel Soyadı</label>
+        <input asp-for="Soyadi" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="KullaniciAdi" class="form-label">Kullanıcı adı</label>
+        <input asp-for="KullaniciAdi" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Mail" class="form-label">Mail</label>
+        <input asp-for="Mail" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="TelefonNo" class="form-label">Telefon Numarası</label>
+        <input asp-for="TelefonNo" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Adres" class="form-label">Adres</label>
+        <input asp-for="Adres" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Unvan" class="form-label">Ünvan</label>
+        <input asp-for="Unvan" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Aktif" class="form-label">Aktif mi</label>
+        <input asp-for="Aktif" class="form-check-input" type="checkbox">
+    </div>
+    <button type="submit" class="btn btn-secondary">Kaydet</button>
+</form> 

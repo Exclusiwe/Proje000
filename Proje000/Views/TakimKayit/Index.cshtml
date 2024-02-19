@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TakimKayit>
+
+<h2>Takım Kayıt Listesi</h2>
+<a href="/TakimKayit/Create" class=" btn btn-primary">Takım Kaydı</a>
+<hr>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="width: 150px;">@Html.DisplayNameFor(m => m.TakimKayitId) </th>
+            <th>@Html.DisplayNameFor(m => m.TakimId)</th>
+            <th>@Html.DisplayNameFor(m => m.VardiyaId)</th>
+            <th style="width: 150px;"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.TakimKayitId) </td>
+                <td>@Html.DisplayFor(modelItem => item.TakimId) </td>
+                <td>@Html.DisplayFor(modelItem => item.VardiyaId) </td>
+                <td>
+                    <a asp-controller="TakimKayit" asp-action="Edit" asp-route-id="@item.TakimKayitId" class="btn btn-sm btn-primary">Transfer</a>
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

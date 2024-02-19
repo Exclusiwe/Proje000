@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Yonetici>
+
+<h2>Yonetici Listesi</h2>
+<a href="/Yonetici/Create" class=" btn btn-primary">Yonetici Ekle</a>
+<hr>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="width: 150px;">@Html.DisplayNameFor(m => m.YoneticiId) </th>
+            <th>@Html.DisplayNameFor(m => m.Adi)</th>
+            <th>@Html.DisplayNameFor(m => m.Soyadi)</th>
+            <th>@Html.DisplayNameFor(m => m.KullaniciAdi)</th>
+            <th>@Html.DisplayNameFor(m => m.Mail)</th>
+            <th>@Html.DisplayNameFor(m => m.TelefonNo)</th>
+            <th>@Html.DisplayNameFor(m => m.TelefonNo)</th>
+            <th>@Html.DisplayNameFor(m => m.Adres)</th>
+            <th>@Html.DisplayNameFor(m => m.Unvan)</th>
+            <th>@Html.DisplayNameFor(m => m.Aktif)</th>
+            <th style="width: 150px;"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.YoneticiId) </td>
+                <td>@Html.DisplayFor(modelItem => item.Adi) </td>
+                <td>@Html.DisplayFor(modelItem => item.Soyadi) </td>
+                <td>@Html.DisplayFor(modelItem => item.KullaniciAdi) </td>
+                <td>@Html.DisplayFor(modelItem => item.Mail) </td>
+                <td>@Html.DisplayFor(modelItem => item.TelefonNo) </td>
+                <td>@Html.DisplayFor(modelItem => item.Adres) </td>
+                <td>@Html.DisplayFor(modelItem => item.Unvan) </td>
+                <td>@Html.DisplayFor(modelItem => item.Aktif) </td>
+
+                <td>
+                    <a asp-controller="Yonetici" asp-action="Edit" asp-route-id="@item.YoneticiId" class="btn btn-sm btn-primary">Düzenleme</a>
+                    <a asp-controller="Yonetici" asp-action="Delete" asp-route-id="@item.YoneticiId" class="btn btn-sm btn-danger">Sil</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

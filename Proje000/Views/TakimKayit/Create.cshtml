@@ -1,0 +1,20 @@
+﻿@model TakimKayit
+
+<h2>Takım Kayıt Ekle</h2>
+<hr>
+
+<form asp-controller="TakimKayit" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="PersonelId" class="form-label">Personel Id</label>
+        <input asp-for="PersonelId" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="TakimId" class="form-label">Takim Id</label>
+        <input asp-for="TakimId" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="VardiyaId" class="form-label">Vardiya Id</label>
+        <input asp-for="VardiyaId" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-secondary">Kaydet</button>
+</form>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Personel>
+
+            <h2>Personel Listesi</h2>
+            <a href="/Personel/Create" class=" btn btn-primary">Personel Ekle</a>
+            <hr>
+    <table class="table table-bordered">
+        <thead>
+         <tr>
+            <th style="width: 150px;">@Html.DisplayNameFor(m => m.PersonelId) </th>
+            <th>@Html.DisplayNameFor(m => m.Adi)</th>
+            <th>@Html.DisplayNameFor(m => m.Soyadi)</th>
+            <th>@Html.DisplayNameFor(m => m.KullaniciAdi)</th>
+            <th>@Html.DisplayNameFor(m => m.Mail)</th>
+            <th>@Html.DisplayNameFor(m => m.TelefonNo)</th>
+            <th>@Html.DisplayNameFor(m => m.TelefonNo)</th>
+            <th>@Html.DisplayNameFor(m => m.Adres)</th>
+            <th>@Html.DisplayNameFor(m => m.Unvan)</th>
+            <th>@Html.DisplayNameFor(m => m.Aktif)</th>
+            <th style="width: 150px;"></th>
+
+         </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model){
+                <tr>
+                <td>@Html.DisplayFor(modelItem => item.PersonelId) </td>
+                <td>@Html.DisplayFor(modelItem => item.Adi) </td>
+                <td>@Html.DisplayFor(modelItem => item.Soyadi) </td>
+                <td>@Html.DisplayFor(modelItem => item.KullaniciAdi) </td>
+                <td>@Html.DisplayFor(modelItem => item.Mail) </td>
+                <td>@Html.DisplayFor(modelItem => item.TelefonNo) </td>
+                <td>@Html.DisplayFor(modelItem => item.Adres) </td>
+                <td>@Html.DisplayFor(modelItem => item.Unvan) </td>
+                <td>@Html.DisplayFor(modelItem => item.Aktif) </td>
+
+                <td>
+                    <a asp-controller="Personel" asp-action="Edit" asp-route-id="@item.PersonelId" class="btn btn-sm btn-primary">Düzenleme</a>
+                    <a asp-controller="Personel" asp-action="Delete" asp-route-id="@item.PersonelId" class="btn btn-sm btn-danger">Sil</a>
+                    
+                </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
