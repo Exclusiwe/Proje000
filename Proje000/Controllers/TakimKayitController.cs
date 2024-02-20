@@ -18,6 +18,7 @@ namespace Proje000.Controllers
                 .Include(x => x.Personel)
                 .Include(x => x.Takim)
                 .Include (x => x.Vardiya)
+                .Include(x => x.Yonetici)
                 .ToListAsync();
             return View(takimK);
         }
@@ -46,12 +47,20 @@ namespace Proje000.Controllers
                     Value = v.VardiyaId.ToString() // veya diğer bir benzersiz kimlik alanı
                 })
                 .ToListAsync();
+            var yoneticiList = await _context.yoneticis
+                .Select(v => new SelectListItem
+                {
+                    Text = v.Adi, // veya diğer bir isim alanı
+                    Value = v.YoneticiId.ToString() // veya diğer bir benzersiz kimlik alanı
+                })
+                .ToListAsync();
 
             ViewBag.personels = new SelectList(personList, "Value", "Text");
             ViewBag.takims = new SelectList(takimList, "Value", "Text");
             ViewBag.vardiyas = new SelectList(vardiyaList, "Value", "Text");
+            ViewBag.yoneticis = new SelectList(yoneticiList, "Value", "Text");
 
-          
+
 
             return View();
         }

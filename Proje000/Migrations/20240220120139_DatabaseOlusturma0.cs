@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Proje000.Migrations
 {
     /// <inheritdoc />
-    public partial class DatabaseOlusturma : Migration
+    public partial class DatabaseOlusturma0 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,7 @@ namespace Proje000.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "yoneticils",
+                name: "yoneticis",
                 columns: table => new
                 {
                     YoneticiId = table.Column<int>(type: "int", nullable: false)
@@ -75,7 +75,7 @@ namespace Proje000.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_yoneticils", x => x.YoneticiId);
+                    table.PrimaryKey("PK_yoneticis", x => x.YoneticiId);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,13 +85,19 @@ namespace Proje000.Migrations
                     TakimKayitId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PersonelId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     TakimId = table.Column<int>(type: "int", nullable: false),
-                    VardiyaId = table.Column<int>(type: "int", nullable: false)
+                    VardiyaId = table.Column<int>(type: "int", nullable: false),
+                    YoneticiId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_takimkayits", x => x.TakimKayitId);
+                    table.ForeignKey(
+                        name: "FK_takimkayits_yoneticis_YoneticiId",
+                        column: x => x.YoneticiId,
+                        principalTable: "yoneticis",
+                        principalColumn: "YoneticiId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_takimkayits_personels_PersonelId",
                         column: x => x.PersonelId,
@@ -126,6 +132,11 @@ namespace Proje000.Migrations
                 name: "IX_takimkayits_VardiyaId",
                 table: "takimkayits",
                 column: "VardiyaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_takimkayits_YoneticiId",
+                table: "takimkayits",
+                column: "YoneticiId");
         }
 
         /// <inheritdoc />
@@ -135,7 +146,7 @@ namespace Proje000.Migrations
                 name: "takimkayits");
 
             migrationBuilder.DropTable(
-                name: "yoneticils");
+                name: "yoneticis");
 
             migrationBuilder.DropTable(
                 name: "personels");

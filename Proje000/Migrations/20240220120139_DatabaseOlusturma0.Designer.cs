@@ -12,8 +12,8 @@ using Proje000.Data;
 namespace Proje000.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240220070200_DatabaseOlusturma")]
-    partial class DatabaseOlusturma
+    [Migration("20240220120139_DatabaseOlusturma0")]
+    partial class DatabaseOlusturma0
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,9 +86,6 @@ namespace Proje000.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TakimKayitId"));
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
 
@@ -98,6 +95,9 @@ namespace Proje000.Migrations
                     b.Property<int>("VardiyaId")
                         .HasColumnType("int");
 
+                    b.Property<int>("YoneticiId")
+                        .HasColumnType("int");
+
                     b.HasKey("TakimKayitId");
 
                     b.HasIndex("PersonelId");
@@ -105,6 +105,8 @@ namespace Proje000.Migrations
                     b.HasIndex("TakimId");
 
                     b.HasIndex("VardiyaId");
+
+                    b.HasIndex("YoneticiId");
 
                     b.ToTable("takimkayits");
                 });
@@ -162,7 +164,7 @@ namespace Proje000.Migrations
 
                     b.HasKey("YoneticiId");
 
-                    b.ToTable("yoneticils");
+                    b.ToTable("Yonetici");
                 });
 
             modelBuilder.Entity("Proje000.Data.TakimKayit", b =>
@@ -185,11 +187,19 @@ namespace Proje000.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Proje000.Data.Yonetici", "Yonetici")
+                        .WithMany()
+                        .HasForeignKey("YoneticiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Personel");
 
                     b.Navigation("Takim");
 
                     b.Navigation("Vardiya");
+
+                    b.Navigation("Yonetici");
                 });
 #pragma warning restore 612, 618
         }

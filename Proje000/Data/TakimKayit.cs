@@ -13,6 +13,9 @@ namespace Proje000.Data
         public Takim Takim { get; set; } =null!;
         public int VardiyaId  { get; set; }
         public Vardiya Vardiya { get; set; } = null!;
+        public int YoneticiId { get; set; }
+        public Yonetici Yonetici { get; set; } = null!;
+
 
     }
 }

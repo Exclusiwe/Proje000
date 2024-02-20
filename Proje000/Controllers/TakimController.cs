@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proje000.Data;
 
@@ -16,8 +17,9 @@ namespace Proje000.Controllers
             var takims = await _context.takims.ToListAsync();
             return View(takims);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.yoneticis = new SelectList(await _context.yoneticis.ToListAsync(),"YoneticiId","Adi");
             return View();
         }
         [HttpPost]

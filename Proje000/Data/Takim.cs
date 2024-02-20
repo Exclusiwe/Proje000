@@ -6,6 +6,9 @@ namespace Proje000.Data
     {
         [Key]
     public int Id { get; set; }
+
     public string? TakimAdi { get; set; }
+
+
     }
 }

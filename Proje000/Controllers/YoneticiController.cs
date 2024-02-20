@@ -15,7 +15,7 @@ namespace Proje000.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await _context.yoneticils.ToListAsync());
+            return View(await _context.yoneticis.ToListAsync());
         }
         public IActionResult Create()
         {
@@ -24,7 +24,7 @@ namespace Proje000.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Yonetici model)
         {
-            _context.yoneticils.Add(model);
+            _context.yoneticis.Add(model);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -35,13 +35,13 @@ namespace Proje000.Controllers
             {
                 return NotFound();
             }
-            var prs = await _context.yoneticils.FindAsync(Id);
-            if (prs == null)
+            var ynt = await _context.yoneticis.FindAsync(Id);
+            if (ynt == null)
             {
                 return NotFound();
 
             }
-            return View(prs);
+            return View(ynt);
         }
         [HttpPost]
         // [ValidateAntiForgeryToken] güvenlik önmeli başkasının senin yerine değişiklik ypamasını engeller kullanılabilir 
@@ -60,7 +60,7 @@ namespace Proje000.Controllers
                 }
                 catch (Exception)
                 {
-                    if (!_context.yoneticils.Any(y => y.YoneticiId == model.YoneticiId))
+                    if (!_context.yoneticis.Any(p => p.YoneticiId == model.YoneticiId))
                     {
                         return BadRequest();
                     }
@@ -82,23 +82,23 @@ namespace Proje000.Controllers
             {
                 return NotFound();
             }
-            var yonetic = await _context.yoneticils.FindAsync(id);
+            var yonetici = await _context.yoneticis.FindAsync(id);
 
-            if (yonetic == null)
-            {
-                return NotFound();
-            }
-            return View(yonetic);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete([FromForm] int id)
-        {
-            var yonetici = await _context.yoneticils.FindAsync(id);
             if (yonetici == null)
             {
                 return NotFound();
             }
-            _context.yoneticils.Remove(yonetici);
+            return View(yonetici);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromForm] int id)
+        {
+            var yonetici = await _context.yoneticis.FindAsync(id);
+            if (yonetici == null)
+            {
+                return NotFound();
+            }
+            _context.yoneticis.Remove(yonetici);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -107,5 +107,4 @@ namespace Proje000.Controllers
 
     }
 }
-
 

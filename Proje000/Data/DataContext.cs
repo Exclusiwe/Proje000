@@ -12,7 +12,7 @@ namespace Proje000.Data
         {
         }
         public DbSet<Personel> personels => Set<Personel>();
-        public DbSet<Yonetici> yoneticils => Set<Yonetici>();
+        public DbSet<Yonetici> yoneticis => Set<Yonetici>();
         public DbSet<Takim> takims => Set<Takim>();
         public DbSet<Vardiya> vardiyas => Set<Vardiya>();
         public DbSet<TakimKayit> takimkayits => Set<TakimKayit>();
