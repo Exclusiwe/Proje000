@@ -12,7 +12,7 @@ using Proje000.Data;
 namespace Proje000.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240213102942_DatabaseOlusturma")]
+    [Migration("20240220070200_DatabaseOlusturma")]
     partial class DatabaseOlusturma
     {
         /// <inheritdoc />
@@ -71,7 +71,6 @@ namespace Proje000.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("TakimAdi")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -87,16 +86,25 @@ namespace Proje000.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TakimKayitId"));
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("TakimId")
                         .HasColumnType("int");
 
                     b.Property<int>("VardiyaId")
                         .HasColumnType("int");
 
                     b.HasKey("TakimKayitId");
+
+                    b.HasIndex("PersonelId");
+
+                    b.HasIndex("TakimId");
+
+                    b.HasIndex("VardiyaId");
 
                     b.ToTable("takimkayits");
                 });
@@ -155,6 +163,33 @@ namespace Proje000.Migrations
                     b.HasKey("YoneticiId");
 
                     b.ToTable("yoneticils");
+                });
+
+            modelBuilder.Entity("Proje000.Data.TakimKayit", b =>
+                {
+                    b.HasOne("Proje000.Data.Personel", "Personel")
+                        .WithMany()
+                        .HasForeignKey("PersonelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Proje000.Data.Takim", "Takim")
+                        .WithMany()
+                        .HasForeignKey("TakimId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Proje000.Data.Vardiya", "Vardiya")
+                        .WithMany()
+                        .HasForeignKey("VardiyaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Personel");
+
+                    b.Navigation("Takim");
+
+                    b.Navigation("Vardiya");
                 });
 #pragma warning restore 612, 618
         }

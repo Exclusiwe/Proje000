@@ -32,27 +32,12 @@ namespace Proje000.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "takimkayits",
-                columns: table => new
-                {
-                    TakimKayitId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PersonelId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    VardiyaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_takimkayits", x => x.TakimKayitId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "takims",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TakimAdi = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TakimAdi = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,25 +77,74 @@ namespace Proje000.Migrations
                 {
                     table.PrimaryKey("PK_yoneticils", x => x.YoneticiId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "takimkayits",
+                columns: table => new
+                {
+                    TakimKayitId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonelId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    TakimId = table.Column<int>(type: "int", nullable: false),
+                    VardiyaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_takimkayits", x => x.TakimKayitId);
+                    table.ForeignKey(
+                        name: "FK_takimkayits_personels_PersonelId",
+                        column: x => x.PersonelId,
+                        principalTable: "personels",
+                        principalColumn: "PersonelId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_takimkayits_takims_TakimId",
+                        column: x => x.TakimId,
+                        principalTable: "takims",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_takimkayits_vardiyas_VardiyaId",
+                        column: x => x.VardiyaId,
+                        principalTable: "vardiyas",
+                        principalColumn: "VardiyaId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_takimkayits_PersonelId",
+                table: "takimkayits",
+                column: "PersonelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_takimkayits_TakimId",
+                table: "takimkayits",
+                column: "TakimId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_takimkayits_VardiyaId",
+                table: "takimkayits",
+                column: "VardiyaId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "personels");
+                name: "takimkayits");
 
             migrationBuilder.DropTable(
-                name: "takimkayits");
+                name: "yoneticils");
+
+            migrationBuilder.DropTable(
+                name: "personels");
 
             migrationBuilder.DropTable(
                 name: "takims");
 
             migrationBuilder.DropTable(
                 name: "vardiyas");
-
-            migrationBuilder.DropTable(
-                name: "yoneticils");
         }
     }
 }

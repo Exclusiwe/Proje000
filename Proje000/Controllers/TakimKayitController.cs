@@ -15,9 +15,9 @@ namespace Proje000.Controllers
         public async Task<IActionResult> Index()
         {
             var takimK = await _context.takimkayits
-                //.Include(x => x.Personel)
-                //.Include(x => x.Takim)
-                //.Include (x => x.Vardiya)
+                .Include(x => x.Personel)
+                .Include(x => x.Takim)
+                .Include (x => x.Vardiya)
                 .ToListAsync();
             return View(takimK);
         }
