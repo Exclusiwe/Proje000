@@ -38,7 +38,7 @@ namespace Proje000.Migrations
                     TakimKayitId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PersonelId = table.Column<int>(type: "int", nullable: false),
-                    TakimId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     VardiyaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

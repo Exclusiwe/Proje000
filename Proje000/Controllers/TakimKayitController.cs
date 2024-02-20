@@ -12,99 +12,61 @@ namespace Proje000.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var takimK = await _context.takimkayits
+                //.Include(x => x.Personel)
+                //.Include(x => x.Takim)
+                //.Include (x => x.Vardiya)
+                .ToListAsync();
+            return View(takimK);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var personList = await _context.personels
+                .Select(p => new SelectListItem
+                {
+                    Text = p.Adi, // veya diğer bir isim alanı
+                    Value = p.PersonelId.ToString() // veya diğer bir benzersiz kimlik alanı
+                })
+                .ToListAsync();
+
+            var takimList = await _context.takims
+                .Select(t => new SelectListItem
+                {
+                    Text = t.TakimAdi, 
+                    Value = t.Id.ToString() 
+                })
+                .ToListAsync();
+            var vardiyaList = await _context.vardiyas
+                .Select(v => new SelectListItem
+                {
+                    Text = v.VardiyaName, // veya diğer bir isim alanı
+                    Value = v.VardiyaId.ToString() // veya diğer bir benzersiz kimlik alanı
+                })
+                .ToListAsync();
+
+            ViewBag.personels = new SelectList(personList, "Value", "Text");
+            ViewBag.takims = new SelectList(takimList, "Value", "Text");
+            ViewBag.vardiyas = new SelectList(vardiyaList, "Value", "Text");
+
+          
+
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(TakimKayit model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create (TakimKayit model)
         {
-            _context.takimkayits.Add(model);
+            _context.takimkayits.Add(model);   
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
-        public async Task<ActionResult> Edit(int? Id)
-        {
-            if (Id == null)
-            {
-                return NotFound();
-            }
-            var tkm = await _context.takimkayits.FindAsync(Id);
-            if (tkm == null)
-            {
-                return NotFound();
-
-            }
-            return View(tkm);
-        }
-        [HttpPost]
-  
-        public async Task<IActionResult> Edit(int id, TakimKayit model)
-        {
-            if (id != model.TakimKayitId)
-            {
-                return NotFound();
-            }
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(model);
-                    await _context.SaveChangesAsync();
-                }
-                catch (Exception)
-                {
-                    if (!_context.takimkayits.Any(p => p.TakimKayitId == model.TakimKayitId))
-                    {
-                        return BadRequest();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var takimkayit = await _context.takimkayits.FindAsync(id);
-
-            if (takimkayit == null)
-            {
-                return NotFound();
-            }
-            return View(takimkayit);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete([FromForm] int id)
-        {
-            var takimkayit = await _context.takimkayits.FindAsync(id);
-            if (takimkayit == null)
-            {
-                return NotFound();
-            }
-            _context.takimkayits.Remove(takimkayit);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-
 
     }
 }
-
-
-
-
+      
 
 

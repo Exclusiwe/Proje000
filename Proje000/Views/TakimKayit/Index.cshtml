@@ -1,31 +1,27 @@
 ﻿@model IEnumerable<TakimKayit>
 
-<h2>Takım Kayıt Listesi</h2>
-<a href="/TakimKayit/Create" class=" btn btn-primary">Takım Kaydı</a>
-<hr>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th style="width: 150px;">@Html.DisplayNameFor(m => m.TakimKayitId) </th>
-            <th>@Html.DisplayNameFor(m => m.TakimId)</th>
-            <th>@Html.DisplayNameFor(m => m.VardiyaId)</th>
-            <th style="width: 150px;"></th>
-
-        </tr>
-    </thead>
-    <tbody>
+    <h2> Kayıtlı Takımlar</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 150px;">@Html.DisplayNameFor(m => m.TakimKayitId)</th>
+                <th>@Html.DisplayNameFor(m => m.Personel.PersonelId)</th>
+            <th>@Html.DisplayNameFor(m => m.Takim.Id)</th>
+            <th style=" width: 150px;">   </th>
+            </tr>
+        </thead>
+        <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.TakimKayitId) </td>
-                <td>@Html.DisplayFor(modelItem => item.TakimId) </td>
-                <td>@Html.DisplayFor(modelItem => item.VardiyaId) </td>
+                <td>@Html.DisplayFor(modelItem =>item.TakimKayitId) </td>
+                <td>@Html.DisplayFor(modelItem => item.Personel.PersonelId) </td>
+                <td>@Html.DisplayFor(modelItem => item.Takim.Id) </td>
                 <td>
-                    <a asp-controller="TakimKayit" asp-action="Edit" asp-route-id="@item.TakimKayitId" class="btn btn-sm btn-primary">Transfer</a>
-
+                    <a  asp-action="Edit" asp-route-id="@item.PersonelId" class="btn btn-sm btn-primary">Düzenleme</a>
+                    <a  asp-action="Delete" asp-route-id="@item.PersonelId" class="btn btn-sm btn-danger">Sil</a>
                 </td>
-
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>

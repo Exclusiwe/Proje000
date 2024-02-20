@@ -87,7 +87,7 @@ namespace Proje000.Migrations
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TakimId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<int>("VardiyaId")
