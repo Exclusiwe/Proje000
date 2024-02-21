@@ -29,7 +29,7 @@ namespace Proje000.Controllers
                 .Select(p => new SelectListItem
                 {
                     Text = p.Adi, // veya diğer bir isim alanı
-                    Value = p.PersonelId.ToString() // veya diğer bir benzersiz kimlik alanı
+                    Value = p.Id.ToString() // veya diğer bir benzersiz kimlik alanı
                 })
                 .ToListAsync();
 
@@ -44,14 +44,14 @@ namespace Proje000.Controllers
                 .Select(v => new SelectListItem
                 {
                     Text = v.VardiyaName, // veya diğer bir isim alanı
-                    Value = v.VardiyaId.ToString() // veya diğer bir benzersiz kimlik alanı
+                    Value = v.Id.ToString() // veya diğer bir benzersiz kimlik alanı
                 })
                 .ToListAsync();
             var yoneticiList = await _context.yoneticis
                 .Select(v => new SelectListItem
                 {
                     Text = v.Adi, // veya diğer bir isim alanı
-                    Value = v.YoneticiId.ToString() // veya diğer bir benzersiz kimlik alanı
+                    Value = v.Id.ToString() // veya diğer bir benzersiz kimlik alanı
                 })
                 .ToListAsync();
 

@@ -14,7 +14,7 @@ public class PersonelController : Controller
 
         public async Task<IActionResult> Index()
         {
-            
+
             return View(await _context.personels.ToListAsync());
         }
     public IActionResult Create()
@@ -47,7 +47,7 @@ public class PersonelController : Controller
         // [ValidateAntiForgeryToken] güvenlik önmeli başkasının senin yerine değişiklik ypamasını engeller kullanılabilir 
         public async Task<IActionResult> Edit(int id, Personel model)
         {
-            if(id != model.PersonelId)
+            if(id != model.Id)
             {
                 return NotFound();
             }
@@ -60,7 +60,7 @@ public class PersonelController : Controller
                 }
                 catch (Exception)
                 {
-                    if (!_context.personels.Any(p => p.PersonelId == model.PersonelId))
+                    if (!_context.personels.Any(p => p.Id == model.Id))
                     {
                         return BadRequest();
                     }

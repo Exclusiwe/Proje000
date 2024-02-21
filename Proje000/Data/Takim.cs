@@ -4,10 +4,21 @@ namespace Proje000.Data
 {
     public class Takim
     {
-        [Key]
-    public int Id { get; set; }
+        public Takim()
+        {
+            personels = new HashSet<Personel>();
+            TakimKayit = new HashSet<TakimKayit>();
+         
 
-    public string? TakimAdi { get; set; }
+        }
+        [Key]
+        public int Id { get; set; }
+
+        public string TakimAdi { get; set; }
+        public ICollection<TakimKayit> TakimKayit { get; set; }
+        public ICollection<Personel> personels { get; set; }
+        public int? YoneticiId { get; set; }
+        public Yonetici Yonetici { get; set; }
 
 
     }

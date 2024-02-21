@@ -1,9 +1,9 @@
 ﻿@model Vardiya
 
 <p>
-    <b>  @Model.VardiyaId @Model.VardiyaName</b> Id'li Vardiyayı silmek istiyor musunuz?
+    <b>  @Model.Id @Model.VardiyaName</b> Id'li Vardiyayı silmek istiyor musunuz?
     <form asp-action="Delete" method="post">
-        <input type="hidden" value="@Model.VardiyaId" name="id">
+        <input type="hidden" value="@Model.Id" name="id">
         <button type="submit" class="btn btn-danger">Evet</button>
         <a asp-action="Index" class="btn-primary">Hayır</a>
     </form>

@@ -1,9 +1,9 @@
 ﻿@model Personel
 
 <p>
-    <b>  @Model.PersonelId @Model.KullaniciAdi</b> Id li Kullanıcıyı silmek istiyor musunuz?
+    <b>  @Model.Id @Model.KullaniciAdi</b> Id li Kullanıcıyı silmek istiyor musunuz?
     <form asp-action="Delete" method="post" >
-     <input type="hidden" value="@Model.PersonelId" name="id">
+     <input type="hidden" value="@Model.Id" name="id">
      <button type="submit" class="btn btn-danger">Evet</button>
      <a asp-action="Index" class="btn-primary">Hayır</a>
     </form>

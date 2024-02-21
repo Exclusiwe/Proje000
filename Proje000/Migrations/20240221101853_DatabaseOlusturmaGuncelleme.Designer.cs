@@ -12,8 +12,8 @@ using Proje000.Data;
 namespace Proje000.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240220120139_DatabaseOlusturma0")]
-    partial class DatabaseOlusturma0
+    [Migration("20240221101853_DatabaseOlusturmaGuncelleme")]
+    partial class DatabaseOlusturmaGuncelleme
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,8 @@ namespace Proje000.Migrations
 
             modelBuilder.Entity("Proje000.Data.Personel", b =>
                 {
-                    b.Property<int>("PersonelId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Id")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonelId"));
 
                     b.Property<string>("Adi")
                         .HasColumnType("nvarchar(max)");
@@ -51,13 +48,16 @@ namespace Proje000.Migrations
                     b.Property<string>("Soyadi")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TakımId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TelefonNo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Unvan")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("PersonelId");
+                    b.HasKey("Id");
 
                     b.ToTable("personels");
                 });
@@ -65,13 +65,14 @@ namespace Proje000.Migrations
             modelBuilder.Entity("Proje000.Data.Takim", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("TakimAdi")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YoneticiId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -80,44 +81,64 @@ namespace Proje000.Migrations
 
             modelBuilder.Entity("Proje000.Data.TakimKayit", b =>
                 {
-                    b.Property<int>("TakimKayitId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TakimKayitId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("PersonelId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PersonelId1")
                         .HasColumnType("int");
 
                     b.Property<int>("TakimId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TakimId1")
+                        .HasColumnType("int");
+
                     b.Property<int>("VardiyaId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VardiyaId1")
                         .HasColumnType("int");
 
                     b.Property<int>("YoneticiId")
                         .HasColumnType("int");
 
-                    b.HasKey("TakimKayitId");
+                    b.Property<int?>("YoneticiId1")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("PersonelId");
 
+                    b.HasIndex("PersonelId1");
+
                     b.HasIndex("TakimId");
+
+                    b.HasIndex("TakimId1");
 
                     b.HasIndex("VardiyaId");
 
+                    b.HasIndex("VardiyaId1");
+
                     b.HasIndex("YoneticiId");
+
+                    b.HasIndex("YoneticiId1");
 
                     b.ToTable("takimkayits");
                 });
 
             modelBuilder.Entity("Proje000.Data.Vardiya", b =>
                 {
-                    b.Property<int>("VardiyaId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VardiyaId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Tarih")
                         .HasColumnType("datetime2");
@@ -125,18 +146,18 @@ namespace Proje000.Migrations
                     b.Property<string>("VardiyaName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("VardiyaId");
+                    b.HasKey("Id");
 
                     b.ToTable("vardiyas");
                 });
 
             modelBuilder.Entity("Proje000.Data.Yonetici", b =>
                 {
-                    b.Property<int>("YoneticiId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("YoneticiId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Adi")
                         .HasColumnType("nvarchar(max)");
@@ -162,9 +183,31 @@ namespace Proje000.Migrations
                     b.Property<string>("Unvan")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("YoneticiId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Yonetici");
+                    b.ToTable("yoneticis");
+                });
+
+            modelBuilder.Entity("Proje000.Data.Personel", b =>
+                {
+                    b.HasOne("Proje000.Data.Takim", "Takim")
+                        .WithMany("personels")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Takim");
+                });
+
+            modelBuilder.Entity("Proje000.Data.Takim", b =>
+                {
+                    b.HasOne("Proje000.Data.Yonetici", "Yonetici")
+                        .WithMany("takims")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Yonetici");
                 });
 
             modelBuilder.Entity("Proje000.Data.TakimKayit", b =>
@@ -172,26 +215,42 @@ namespace Proje000.Migrations
                     b.HasOne("Proje000.Data.Personel", "Personel")
                         .WithMany()
                         .HasForeignKey("PersonelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Proje000.Data.Personel", null)
+                        .WithMany("TakimKayit")
+                        .HasForeignKey("PersonelId1");
 
                     b.HasOne("Proje000.Data.Takim", "Takim")
                         .WithMany()
                         .HasForeignKey("TakimId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Proje000.Data.Takim", null)
+                        .WithMany("TakimKayit")
+                        .HasForeignKey("TakimId1");
 
                     b.HasOne("Proje000.Data.Vardiya", "Vardiya")
                         .WithMany()
                         .HasForeignKey("VardiyaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Proje000.Data.Vardiya", null)
+                        .WithMany("TakimKayit")
+                        .HasForeignKey("VardiyaId1");
 
                     b.HasOne("Proje000.Data.Yonetici", "Yonetici")
                         .WithMany()
                         .HasForeignKey("YoneticiId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Proje000.Data.Yonetici", null)
+                        .WithMany("TakimKayit")
+                        .HasForeignKey("YoneticiId1");
 
                     b.Navigation("Personel");
 
@@ -200,6 +259,30 @@ namespace Proje000.Migrations
                     b.Navigation("Vardiya");
 
                     b.Navigation("Yonetici");
+                });
+
+            modelBuilder.Entity("Proje000.Data.Personel", b =>
+                {
+                    b.Navigation("TakimKayit");
+                });
+
+            modelBuilder.Entity("Proje000.Data.Takim", b =>
+                {
+                    b.Navigation("TakimKayit");
+
+                    b.Navigation("personels");
+                });
+
+            modelBuilder.Entity("Proje000.Data.Vardiya", b =>
+                {
+                    b.Navigation("TakimKayit");
+                });
+
+            modelBuilder.Entity("Proje000.Data.Yonetici", b =>
+                {
+                    b.Navigation("TakimKayit");
+
+                    b.Navigation("takims");
                 });
 #pragma warning restore 612, 618
         }

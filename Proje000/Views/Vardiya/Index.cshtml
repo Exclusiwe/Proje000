@@ -6,7 +6,7 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th style="width: 150px;">@Html.DisplayNameFor(m => m.VardiyaId) </th>
+            <th style="width: 150px;">@Html.DisplayNameFor(m => m.Id) </th>
             <th>@Html.DisplayNameFor(m => m.VardiyaName)</th>
             <th>@Html.DisplayNameFor(m => m.Tarih)</th>
             <th style="width: 150px;"></th>
@@ -17,13 +17,13 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.VardiyaId) </td>
+                <td>@Html.DisplayFor(modelItem => item.Id) </td>
                 <td>@Html.DisplayFor(modelItem => item.VardiyaName) </td>
                 <td>@Html.DisplayFor(modelItem => item.Tarih) </td>
 
                 <td>
-                    <a asp-controller="Vardiya" asp-action="Edit" asp-route-id="@item.VardiyaId" class="btn btn-sm btn-primary">Düzenleme</a>
-                    <a asp-controller="Vardiya" asp-action="Delete" asp-route-id="@item.VardiyaId" class="btn btn-sm btn-danger">Sil</a>
+                    <a asp-controller="Vardiya" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Düzenleme</a>
+                    <a asp-controller="Vardiya" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
 
                 </td>
 

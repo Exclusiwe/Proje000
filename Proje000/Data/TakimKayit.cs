@@ -6,7 +6,7 @@ namespace Proje000.Data
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TakimKayitId { get; set; }
+        public int Id { get; set; }
         public int PersonelId { get; set; }
         public Personel Personel { get; set; } = null!;
         public int TakimId { get; set; }

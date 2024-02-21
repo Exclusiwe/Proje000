@@ -47,7 +47,7 @@ namespace Proje000.Controllers
         // [ValidateAntiForgeryToken] güvenlik önmeli başkasının senin yerine değişiklik ypamasını engeller kullanılabilir 
         public async Task<IActionResult> Edit(int id, Yonetici model)
         {
-            if (id != model.YoneticiId)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -60,7 +60,7 @@ namespace Proje000.Controllers
                 }
                 catch (Exception)
                 {
-                    if (!_context.yoneticis.Any(p => p.YoneticiId == model.YoneticiId))
+                    if (!_context.yoneticis.Any(p => p.Id == model.Id))
                     {
                         return BadRequest();
                     }

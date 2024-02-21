@@ -46,7 +46,7 @@ namespace Proje000.Controllers
         // [ValidateAntiForgeryToken] güvenlik önmeli başkasının senin yerine değişiklik ypamasını engeller kullanılabilir 
         public async Task<IActionResult> Edit(int id, Vardiya model)
         {
-            if (id != model.VardiyaId)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -59,7 +59,7 @@ namespace Proje000.Controllers
                 }
                 catch (Exception)
                 {
-                    if (!_context.vardiyas.Any(t => t.VardiyaId == model.VardiyaId))
+                    if (!_context.vardiyas.Any(t => t.Id == model.Id))
                     {
                         return BadRequest();
                     }

@@ -5,7 +5,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="width: 150px;">@Html.DisplayNameFor(m => m.TakimKayitId)</th>
+                <th style="width: 150px;">@Html.DisplayNameFor(m => m.Id)</th>
                 <th>@Html.DisplayNameFor(m => m.Personel.Adi)</th>
             <th>@Html.DisplayNameFor(m => m.Takim.TakimAdi)</th>
             <th>@Html.DisplayNameFor(m => m.Yonetici.Adi)</th>
@@ -16,13 +16,13 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem =>item.TakimKayitId) </td>
+                <td>@Html.DisplayFor(modelItem =>item.Id) </td>
                 <td>@Html.DisplayFor(modelItem => item.Personel.Adi) </td>
                 <td>@Html.DisplayFor(modelItem => item.Takim.TakimAdi) </td>
                 <td>@Html.DisplayFor(modelItem => item.Yonetici.Adi) </td>
                 <td>
-                    <a  asp-action="Edit" asp-route-id="@item.PersonelId" class="btn btn-sm btn-primary">Düzenleme</a>
-                    <a  asp-action="Delete" asp-route-id="@item.PersonelId" class="btn btn-sm btn-danger">Sil</a>
+                    <a  asp-controller="TakimKayit" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Düzenleme</a>
+                    <a  asp-controller="TakimKayit" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
                 </td>
             </tr>
         }
