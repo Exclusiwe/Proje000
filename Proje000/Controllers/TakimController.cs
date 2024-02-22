@@ -25,30 +25,22 @@ namespace Proje000.Controllers
 
         public async Task<IActionResult> Create()
         {
-            ViewBag.yoneticis = new SelectList(await _context.yoneticis.ToListAsync(), "Id", "Adi");
+           
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(Takim model)
         {
-            if (ModelState.IsValid)
-            {
-                // Yeni bir Takim nesnesi oluşturulurken, TakimId özelliği atanır
-                var newTakim = new Takim
-                {
-                    TakimAdi = model.TakimAdi,
-                    Id = model.Id // Burada TakimId özelliğinin doğru değeri atanmalıdır
-                };
+            
 
-                _context.takims.Add(newTakim);
+                _context.takims.Add(model);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Index");
-            }
+          
 
-            ViewBag.yoneticis = new SelectList(await _context.yoneticis.ToListAsync(), "Id", "Adi");
-            return View(model);
+        
         }
 
         public async Task<ActionResult> Edit(int? Id)
@@ -57,24 +49,22 @@ namespace Proje000.Controllers
             {
                 return NotFound();
             }
-
             var tkm = await _context.takims.FindAsync(Id);
             if (tkm == null)
             {
                 return NotFound();
-            }
 
+            }
             return View(tkm);
         }
-
         [HttpPost]
+        
         public async Task<IActionResult> Edit(int id, Takim model)
         {
             if (id != model.Id)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try

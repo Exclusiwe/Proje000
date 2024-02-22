@@ -25,7 +25,10 @@ namespace Proje000.Migrations
             modelBuilder.Entity("Proje000.Data.Personel", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Adi")
                         .HasColumnType("nvarchar(max)");
@@ -45,7 +48,7 @@ namespace Proje000.Migrations
                     b.Property<string>("Soyadi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TakımId")
+                    b.Property<int?>("TakimId")
                         .HasColumnType("int");
 
                     b.Property<string>("TelefonNo")
@@ -56,22 +59,29 @@ namespace Proje000.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TakimId");
+
                     b.ToTable("personels");
                 });
 
             modelBuilder.Entity("Proje000.Data.Takim", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("TakimAdi")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("YoneticiId")
+                    b.Property<int?>("YoneticiId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("YoneticiId");
 
                     b.ToTable("takims");
                 });
@@ -87,44 +97,24 @@ namespace Proje000.Migrations
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PersonelId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("TakimId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TakimId1")
                         .HasColumnType("int");
 
                     b.Property<int>("VardiyaId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VardiyaId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("YoneticiId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("YoneticiId1")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PersonelId");
 
-                    b.HasIndex("PersonelId1");
-
                     b.HasIndex("TakimId");
-
-                    b.HasIndex("TakimId1");
 
                     b.HasIndex("VardiyaId");
 
-                    b.HasIndex("VardiyaId1");
-
                     b.HasIndex("YoneticiId");
-
-                    b.HasIndex("YoneticiId1");
 
                     b.ToTable("takimkayits");
                 });
@@ -189,9 +179,7 @@ namespace Proje000.Migrations
                 {
                     b.HasOne("Proje000.Data.Takim", "Takim")
                         .WithMany("personels")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TakimId");
 
                     b.Navigation("Takim");
                 });
@@ -200,9 +188,7 @@ namespace Proje000.Migrations
                 {
                     b.HasOne("Proje000.Data.Yonetici", "Yonetici")
                         .WithMany("takims")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("YoneticiId");
 
                     b.Navigation("Yonetici");
                 });
@@ -210,44 +196,28 @@ namespace Proje000.Migrations
             modelBuilder.Entity("Proje000.Data.TakimKayit", b =>
                 {
                     b.HasOne("Proje000.Data.Personel", "Personel")
-                        .WithMany()
-                        .HasForeignKey("PersonelId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Proje000.Data.Personel", null)
                         .WithMany("TakimKayit")
-                        .HasForeignKey("PersonelId1");
+                        .HasForeignKey("PersonelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Proje000.Data.Takim", "Takim")
-                        .WithMany()
-                        .HasForeignKey("TakimId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Proje000.Data.Takim", null)
                         .WithMany("TakimKayit")
-                        .HasForeignKey("TakimId1");
+                        .HasForeignKey("TakimId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Proje000.Data.Vardiya", "Vardiya")
-                        .WithMany()
-                        .HasForeignKey("VardiyaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Proje000.Data.Vardiya", null)
                         .WithMany("TakimKayit")
-                        .HasForeignKey("VardiyaId1");
+                        .HasForeignKey("VardiyaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Proje000.Data.Yonetici", "Yonetici")
-                        .WithMany()
-                        .HasForeignKey("YoneticiId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Proje000.Data.Yonetici", null)
                         .WithMany("TakimKayit")
-                        .HasForeignKey("YoneticiId1");
+                        .HasForeignKey("YoneticiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Personel");
 

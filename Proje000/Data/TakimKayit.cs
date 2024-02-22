@@ -5,16 +5,15 @@ namespace Proje000.Data
     public class TakimKayit
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int PersonelId { get; set; }
-        public Personel Personel { get; set; } = null!;
+        public Personel Personel { get; set; }
         public int TakimId { get; set; }
-        public Takim Takim { get; set; } =null!;
+        public Takim Takim { get; set; } 
         public int VardiyaId  { get; set; }
-        public Vardiya Vardiya { get; set; } = null!;
+        public Vardiya Vardiya { get; set; } 
         public int YoneticiId { get; set; }
-        public Yonetici Yonetici { get; set; } = null!;
+        public Yonetici Yonetici { get; set; } 
 
 
     }

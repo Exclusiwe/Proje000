@@ -11,8 +11,8 @@ namespace Proje000.Data
             TakimKayit = new HashSet<TakimKayit>();
 
         }
-        [Key]
-        public int Id { get; set; }
+         [Key]
+         public int Id { get; set; }
         public string? Adi { get; set; }
         public string? Soyadi { get; set; }
         public string? KullaniciAdi { get; set; }

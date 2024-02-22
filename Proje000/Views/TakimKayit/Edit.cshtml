@@ -1,0 +1,31 @@
+﻿@model TakimKayit
+
+<h2> Takim Kayit Düzenleme</h2>
+<hr>
+<form asp-controller="TakimKayit" asp-action="Edit" method="post">
+    <div class=" mb-3">
+        <label asp-for="PersonelId" class=" form-label">Personel</label>
+        <select asp-for="PersonelId" asp-items="ViewBag.personels" class="form-control">
+            <option value="">Seçiniz</option>
+        </select>
+    </div>
+    <div class=" mb-3">
+        <label asp-for="TakimId" class=" form-label">Takım</label>
+        <select asp-for="TakimId" asp-items="ViewBag.takims" class="form-control">
+            <option value="">Seçiniz</option>
+        </select>
+    </div>
+    <div class=" mb-3">
+        <label asp-for="VardiyaId" class=" form-label">Vardiya</label>
+        <select asp-for="VardiyaId" asp-items="ViewBag.vardiyas" class="form-control">
+            <option value="">Seçiniz</option>
+        </select>
+    </div>
+    <div class=" mb-3">
+        <label asp-for="YoneticiId" class=" form-label">Yönetici</label>
+        <select asp-for="YoneticiId" asp-items="ViewBag.yoneticis" class="form-control">
+            <option value="">Seçiniz</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-secondary">Kaydet</button>
+</form>

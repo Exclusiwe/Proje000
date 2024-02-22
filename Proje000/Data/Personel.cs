@@ -19,8 +19,11 @@ namespace Proje000.Data
         public string? Adres { get; set; }
         public string? Unvan { get; set; }
         public bool Aktif { get; set; }
+
         public int? TakimId { get; set; }
+
         public Takim Takim { get; set; }
+
         public ICollection<TakimKayit> TakimKayit { get; set; }
 
     }
